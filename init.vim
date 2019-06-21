@@ -133,7 +133,8 @@ set shiftround " Always indent with a multiple of shiftwidth
 set tabstop=4 " Default indentation is 4 spaces long and uses tabs, not spaces...
 set softtabstop=4
 set shiftwidth=4
-set noexpandtab
+set expandtab
+" set noexpandtab
 
 set ttyfast
 
@@ -158,19 +159,16 @@ set noerrorbells " Turn of error notifications
 set novisualbell
 
 set nofoldenable " Disable folding
-set background=dark
+" set background=dark
 
 
 " ----------------------------------------------------------------------------
 " MARK: - Colors Themes
 " ----------------------------------------------------------------------------
 
-Plug 'morhetz/gruvbox'
-
 " Gruvbox setup
-let g:gruvbox_bold = 0
-
-
+Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
 " ----------------------------------------------------------------------------
 " MARK: - UI Plugins
 " ----------------------------------------------------------------------------
@@ -360,6 +358,12 @@ set shortmess+=c
 " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
 inoremap <c-c> <ESC>
 
+" make it fast
+let ncm2#popup_delay = 5
+let ncm2#complete_length = [[1, 1]]
+" Use new fuzzy based matches
+let g:ncm2#matcher = 'substrfuzzy'
+
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -381,6 +385,7 @@ inoremap <silent> <expr> <CR> ((pumvisible() && empty(v:completed_item)) ?  "\<c
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-go'
+
 " Plug 'ncm2/ncm2-match-highlight'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-cssomni'
@@ -389,11 +394,15 @@ Plug 'artur-shaik/vim-javacomplete2', {'for': ['java', 'jsp']}
 
 " Dictionary
 Plug 'filipekiss/ncm2-look.vim'
-let g:ncm2_look_enabled = 0
+let g:ncm2_look_enabled = 1
 
 " more dictionaries"
 let ncm2_look_use_spell = 0
 
+" Python
+Plug 'HansPinckaers/ncm2-jedi'  " fast python completion (use ncm2 if you want type info or snippet support)
+" Plug 'ncm2/ncm2-jedi'
+Plug 'davidhalter/jedi-vim'   " jedi for python
 
 " semantic completion"
 " Plug 'zxqfl/tabnine-vim'
@@ -562,11 +571,30 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
 imap <C-@> <C-Space>
 
 
+
+
+
 " ----------------------------------------------------------------------------
 " MARK: - Stop Loading Plugins
 " ----------------------------------------------------------------------------
 
 call plug#end()
+
+" Disable Jedi-vim autocompletion and enable call-signatures options
+" let g:jedi#auto_initialization = 1
+" let g:jedi#completions_enabled = 0
+" let g:jedi#auto_vim_configuration = 0
+" let g:jedi#smart_auto_mappings = 0
+" let g:jedi#popup_on_dot = 0
+" let g:jedi#completions_command = ""
+" let g:jedi#show_call_signatures = "1"
+
+let g:gruvbox_bold = 0
+" colorscheme gruvbox
+
+" colorscheme PaperColor
+" set background=light
+set background=dark
 
 
 " ----------------------------------------------------------------------------
@@ -693,7 +721,6 @@ nmap <silent> <leader>sp :set spell!<CR>
 " ----------------------------------------------------------------------------
 
 " Set color scheme
-colorscheme gruvbox
 
 " Finish tuning Vim
 filetype plugin indent on
