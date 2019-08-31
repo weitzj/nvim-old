@@ -593,8 +593,8 @@ let g:gruvbox_bold = 0
 " colorscheme gruvbox
 
 " colorscheme PaperColor
-" set background=light
-set background=dark
+set background=light
+" set background=dark
 
 
 " ----------------------------------------------------------------------------
