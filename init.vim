@@ -450,9 +450,10 @@ imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 " Linting
 " ----------------------------------------------------------------------------
 
-let g:ale_completion_enabled = 1
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 " Error and warning signs.
+let g:ale_sign_column_always = 1
+let g:ale_completion_enabled = 1
 let g:ale_sign_error = 'x'
 let g:ale_sign_warning = '⚠'
 
