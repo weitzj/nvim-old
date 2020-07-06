@@ -96,8 +96,8 @@ set smartcase  " Override 'ignorecase' when pattern has upper case character
 " ----------------------------------------------------------------------------
 
 set history=1000 " Remember everything
-set undolevels=1000
 
+set undolevels=1000
 " Nice persistent undos
 let &undodir=CreateAndExpand(cacheDir . '/undo')
 set undofile
@@ -167,20 +167,29 @@ set nofoldenable " Disable folding
 " ----------------------------------------------------------------------------
 
 " Solarized setup
-Plug 'icymind/NeoSolarized'
+" Plug 'icymind/NeoSolarized'
+" Plug 'icymind/NeoSolarized'
+Plug 'tomasr/molokai'
+Plug 'NLKNguyen/papercolor-theme'
+let g:molokai_original = 1
+
 " ----------------------------------------------------------------------------
 " MARK: - UI Plugins
 " ----------------------------------------------------------------------------
 
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
+let g:lightline = {
+      \ 'colorscheme': 'PaperColor',
+      \ }
+" Plug 'vim-airline/vim-airline'
 Plug 'zhaocai/GoldenView.Vim', {'on': '<Plug>ToggleGoldenViewAutoResize'}
 " Plug 'luochen1990/rainbow'
 " Plug 'thiagoalessio/rainbow_levels.vim'
 
 " Vim Airline setup
-let g:airline_powerline_fonts = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 2
+" let g:airline_powerline_fonts = 0
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#whitespace#mixed_indent_algo = 2
 
 " GoldenView setup
 let g:goldenview__enable_default_mapping=0
@@ -287,8 +296,15 @@ au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " Terraform
 Plug 'hashivim/vim-terraform'
+Plug 'juliosueiras/vim-terraform-completion'
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
+" let g:terraform_fmt_on_save=1
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 0
 
 " Neomake
 Plug 'neomake/neomake'
@@ -393,7 +409,7 @@ Plug 'artur-shaik/vim-javacomplete2', {'for': ['java', 'jsp']}
 
 " Dictionary
 Plug 'filipekiss/ncm2-look.vim'
-let g:ncm2_look_enabled = 1
+let g:ncm2_look_enabled = 0
 
 " more dictionaries"
 let ncm2_look_use_spell = 0
@@ -589,29 +605,29 @@ call plug#end()
 " let g:jedi#completions_command = ""
 " let g:jedi#show_call_signatures = "1"
 
-colorscheme NeoSolarized
-" default value is "normal", Setting this option to "high" or "low" does use the 
-" same Solarized palette but simply shifts some values up or down in order to 
-" expand or compress the tonal range displayed.
-let g:neosolarized_contrast = "high"
-
-" Special characters such as trailing whitespace, tabs, newlines, when displayed 
-" using ":set list" can be set to one of three levels depending on your needs. 
-" Default value is "normal". Provide "high" and "low" options.
-let g:neosolarized_visibility = "high"
-
-" I make vertSplitBar a transparent background color. If you like the origin solarized vertSplitBar
-" style more, set this value to 0.
-let g:neosolarized_vertSplitBgTrans = 1
-
-" If you wish to enable/disable NeoSolarized from displaying bold, underlined or italicized 
-" typefaces, simply assign 1 or 0 to the appropriate variable. Default values:
-let g:neosolarized_bold = 1
-let g:neosolarized_underline = 1
-let g:neosolarized_italic = 0
-
 set background=light
 " set background=dark
+colorscheme PaperColor
+" " default value is "normal", Setting this option to "high" or "low" does use the 
+" " same Solarized palette but simply shifts some values up or down in order to 
+" " expand or compress the tonal range displayed.
+" let g:neosolarized_contrast = "high"
+
+" " Special characters such as trailing whitespace, tabs, newlines, when displayed 
+" " using ":set list" can be set to one of three levels depending on your needs. 
+" " Default value is "normal". Provide "high" and "low" options.
+" let g:neosolarized_visibility = "high"
+
+" " I make vertSplitBar a transparent background color. If you like the origin solarized vertSplitBar
+" " style more, set this value to 0.
+" let g:neosolarized_vertSplitBgTrans = 1
+
+" " If you wish to enable/disable NeoSolarized from displaying bold, underlined or italicized 
+" " typefaces, simply assign 1 or 0 to the appropriate variable. Default values:
+" let g:neosolarized_bold = 1
+" let g:neosolarized_underline = 1
+" let g:neosolarized_italic = 0
+
 
 
 " ----------------------------------------------------------------------------
