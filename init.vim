@@ -296,6 +296,7 @@ au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " Terraform
 Plug 'hashivim/vim-terraform'
+Plug 'vim-syntastic/syntastic'
 Plug 'juliosueiras/vim-terraform-completion'
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
