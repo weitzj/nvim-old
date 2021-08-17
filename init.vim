@@ -150,7 +150,7 @@ set matchtime=2
 set wildmenu           " Tab complete commands
 set wildmode=list:full " Show full list of commands
 set wildignorecase
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor/**
 
 set splitbelow " Split windows below
 set splitright " Split windows right
@@ -235,6 +235,7 @@ nnoremap <F1> :Startify<cr>
 " ----------------------------------------------------------------------------
 " MARK: - Editing Plugins
 " ----------------------------------------------------------------------------
+"
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -264,6 +265,10 @@ autocmd FileType c,cpp,cs,java setlocal commentstring=//\ %s
 " ----------------------------------------------------------------------------
 " MARK: - Language Plugins
 " ----------------------------------------------------------------------------
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+
+Plug 'neovim/nvim-lspconfig'
 
 " Misc
 Plug 'tpope/vim-endwise'
@@ -531,9 +536,9 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 " ----------------------------------------------------------------------------
 if empty(glob("~/bin/rg"))
 	 !mkdir -p ~/bin/
-	 !curl -fLo /tmp/rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep-12.1.1-x86_64-unknown-linux-musl.tar.gz
+	 !curl -fLo /tmp/rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
 	 !tar xzvf /tmp/rg.tar.gz --directory /tmp
-	 !cp /tmp/ripgrep-12.1.1-x86_64-unknown-linux-musl/rg ~/bin/rg
+	 !cp /tmp/ripgrep-13.0.0-x86_64-unknown-linux-musl/rg ~/bin/rg
 endif
 
 Plug 'mileszs/ack.vim'
@@ -545,7 +550,11 @@ let g:ctrlp_map	 = '<c-p>'
 " let g:ctrlp_cmd	 = 'CtrlPMixed'
 " let g:ctrlp_cmd	 = 'CtrlPMixed'
 nnoremap <leader>b :CtrlPBufTagAll<CR>
-let g:ctrlp_user_command = '~/bin/rg --files %s'
+" let g:ctrlp_user_command = '~/bin/rg --files %s'
+let g:ctrlp_user_command = '
+\ rg --files %s --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow
+\ -g "!{vendor,.config,.git,node_modules,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" -g "*.{ts,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}" '
+
 let g:ctrlp_use_caching = 0
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'et'
@@ -555,9 +564,9 @@ Plug 'junegunn/fzf.vim'
 
 if !empty(glob("~/.fzf/bin/fzf"))
 	if empty(glob("~/.fzf/bin/rg"))
-		silent !curl -fLo /tmp/rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep-12.1.1-x86_64-unknown-linux-musl.tar.gz
+		silent !curl -fLo /tmp/rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
 		silent !tar xzvf /tmp/rg.tar.gz --directory /tmp
-		silent !cp /tmp/ripgrep-12.1.1-x86_64-unknown-linux-musl/rg ~/.fzf/bin/rg
+		silent !cp /tmp/ripgrep-13.0.0-x86_64-unknown-linux-musl/rg ~/.fzf/bin/rg
 	endif
 endif
 
@@ -574,8 +583,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 let g:rg_command = '
 \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-\ -g "*.{ts,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}"
-\ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
+\ -g "!{vendor,.config,.git,node_modules,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" -g "*.{ts,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}" '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 "
